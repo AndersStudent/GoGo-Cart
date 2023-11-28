@@ -7,18 +7,8 @@ public class CheckPoint : MonoBehaviour
 {
     public int CheckPointNumber;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //Check if a cart hits the checkpoint and send the info to the kart
     public void OnTriggerEnter(Collider other)
     {
         KartController kartController = other.GetComponent<KartController>();

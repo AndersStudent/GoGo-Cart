@@ -18,6 +18,7 @@ public class MistroyBoxSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Check if it shall make a new loot box, some time after the last one was collectet
         if (SpawnNew == true)
         {
             if (Timer > 10)

@@ -40,6 +40,7 @@ public class KartController : MonoBehaviour
         Path = new List<GameObject>(Ov.Path);
         Lap = 1;
 
+        //Set Cam for the player
         if (Player == true)
         {
             Cam.SetActive(true);
@@ -55,12 +56,14 @@ public class KartController : MonoBehaviour
 
     private void Update()
     {
+        //Points calculater to see what place the kart is on
         Points = Lap * 1000000 + CheckPointNumber * 10000 + 1000 - (int)Vector3.Distance(transform.position, Path[CheckPointNumber].transform.position);
 
         if (Player == true)
         {
             Ov.Place.text = Place + "th";
 
+            //Player Movement
             if (Input.GetKey(KeyCode.W))
             {
                 Acceleration();
@@ -82,7 +85,7 @@ public class KartController : MonoBehaviour
                 transform.Translate(Vector3.right * currentSpeed * Time.deltaTime);
             }
 
-
+            //Turn the kart
             if (Input.GetKey(KeyCode.D))
             {
                 currentTurnSpeed = turnSpeed;
@@ -96,6 +99,7 @@ public class KartController : MonoBehaviour
                 currentTurnSpeed = 0;
             }
 
+            //use power up
             if (Input.GetKey(KeyCode.Space))
             {
                 if (ItemString.Name == "SpeedUp")
@@ -113,19 +117,23 @@ public class KartController : MonoBehaviour
         }
         else
         {
+            //Ai movement
+            //Check distance to check point
             if (Vector3.Distance(transform.position, Path[CheckPointNumber].transform.position) > .0000001)
             {
                 Acceleration();
                 GasParticel.Play();
 
                 if (Ov.Counter == 5)
-                {
+                {        
                     transform.Translate(Vector3.right * currentSpeed * Time.deltaTime);
                 }
             }
 
+            //Make the point it go not totally straight
             GetNewGoForPoint();
 
+            //Make the kart Turn towards the checkpoint
             if (Ov.Counter == 5)
             {
                 Vector3 directionToWaypoint = (GoingForPoint - transform.position).normalized;
@@ -134,6 +142,7 @@ public class KartController : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 3.0f);
             }
 
+            // Use power up
             if (ItemString.Name == "SpeedUp")
             {
                 Debug.Log("SpeedUp");
@@ -145,6 +154,7 @@ public class KartController : MonoBehaviour
         }
     }
 
+    //Accelerate
     public void Acceleration()
     {
         if (currentSpeed < topSpeed - TrackModstand)
@@ -157,6 +167,7 @@ public class KartController : MonoBehaviour
         }
     }
 
+    //Break
     public void Break()
     {
         if (currentSpeed > -1)
@@ -165,6 +176,7 @@ public class KartController : MonoBehaviour
         }
     }
 
+    //Slow the car down if nothing pressed or going to fast
     public void SlowDown(int downForce)
     {
         if (currentSpeed > 0)
@@ -177,6 +189,7 @@ public class KartController : MonoBehaviour
         }
     }
 
+    //Make the point it go not totally straight
     public void GetNewGoForPoint()
     {
         GoingForPoint = new Vector3(Path[CheckPointNumber].transform.position.x + Random.Range(-12,12.1f), 0, Path[CheckPointNumber].transform.position.z + Random.Range(-12, 12.1f));

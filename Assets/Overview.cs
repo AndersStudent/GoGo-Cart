@@ -34,13 +34,16 @@ public class Overview : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Sort the kart list so the first one is the one with most point
         KartsList = Karts.OrderByDescending(kart => kart.Points).ToList();
 
+        //Update the postion of the kart
         for (int i = 0; i < KartsList.Count; i++)
         {
             KartsList[i].Place = i + 1;
         }
 
+        //Count down in the start of the race
         if (Counter < 5)
         {
             if (Counter == 4)
@@ -66,6 +69,7 @@ public class Overview : MonoBehaviour
             }
         }
 
+        //Show what lap the player is on after the goal check point was hit
         if (WantToClose == true)
         {
             if (CloseTimer > 2)
@@ -81,6 +85,7 @@ public class Overview : MonoBehaviour
         }
     }
 
+    //Check if the kart has cross over the finish line
     private void OnTriggerEnter(Collider other)
     {
         KartController kartController = other.GetComponent<KartController>();
@@ -97,6 +102,7 @@ public class Overview : MonoBehaviour
                     Lap.text = kartController.Lap + "/" + MaxLap;
 
 
+                    //Check if it was the last lap
                     if (kartController.Lap  == MaxLap)
                     {
                         LapShower.text = "Finish";

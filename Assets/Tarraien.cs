@@ -4,18 +4,8 @@ using UnityEngine;
 
 public class Tarraien : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //Check if a cart is on the grass and give less traction
     public void OnCollisionEnter(Collision collision)
     {
         KartController Kart = collision.gameObject.GetComponent<KartController>();
@@ -27,6 +17,7 @@ public class Tarraien : MonoBehaviour
         }
     }
 
+    //Check if a cart is not on the grass and give it more traction
     public void OnCollisionExit(Collision collision)
     {
         KartController Kart = collision.gameObject.GetComponent<KartController>();

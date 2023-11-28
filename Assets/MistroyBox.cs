@@ -21,20 +21,10 @@ public class MistroyBox : MonoBehaviour
 
     public MistroyBoxSpawner Spawner;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    //Check if a kart hits it and than gives it a power up
     public void OnTriggerEnter(Collider other)
-    {
+    {  
         KartController kartController = other.GetComponent<KartController>();
 
         if (kartController != null)
@@ -52,6 +42,7 @@ public class MistroyBox : MonoBehaviour
 
                 if (kartController.Player == true)
                 {
+                    //Sets the ui to the power up if the player hits it
                     FindObjectOfType<Overview>().PowerUpSprite.sprite = PowerUps[_rr].Sprite;
                     FindObjectOfType<Overview>().PowerUpSprite.color = new Color(255, 255, 255, 255);
                 }
